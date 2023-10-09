@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function generateTransactionID() {
+            var transactionID = "RT" + Math.floor(Math.random() * 100000) + 1;
+            document.getElementById("transactionID").value = transactionID;
+        }
+    </script>
+</head>
+<body>
+    <form action="process_form.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="phone">Phone No:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea><br>
+
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" required><br>
+
+        <label for="organization">Organization:</label>
+        <input type="text" id="organization" name="organization" required><br>
+<!-- 
+        <label for="registrationID">Registration ID:</label>
+        <input type="text" id="registrationID" name="registrationID" value="" readonly><br> -->
+
+        <label for="registrationType">Registration Type:</label>
+        <select id="registrationType" name="registrationType" onchange="calculateTotal()" required>
+            <option value="select">Select</option>
+            <option value="delegate">Delegate (₹2500)</option>
+            <option value="student">Student (₹2000)</option>
+        </select><br>
+
+        <label>Companion:</label>
+        <input type="radio" name="companion" value="yes" onclick="calculateTotal()">Yes
+        <input type="radio" name="companion" value="no" onclick="calculateTotal()">No<br>
+
+        <div id="companionAmount" style="display:none;">
+            Companion Amount: ₹<span id="companionCost">1000</span><br>
+        </div>
+
+        <label for="accommodation">Accommodation:</label>
+        <input type="checkbox" id="accommodation" name="accommodation" onclick="showHotelDropdown()"><br>
+
+        <div id="hotelDropdown" style="display:none;">
+            <label for="hotel">Select Hotel:</label>
+            <select id="hotel" name="hotel" onchange="calculateTotal()">
+                <option value="select">Select</option>
+                <option value="Ramada">Hotel Ramada</option>
+                <option value="Clarkinn">Clarkinn</option>
+                <option value="RoyalResidency">Royal Residency</option>
+            </select><br>
+
+            <label for="occupancy">Select Occupancy:</label>
+            <select id="occupancy" name="occupancy" onchange="calculateTotal()">
+                <option value="select">Select</option>
+                <option value="single">Single Occupancy (₹4500)</option>
+                <option value="double">Double Occupancy (₹2000)</option>
+            </select><br>
+
+            <div id="nightOptions" style="display:none;">
+                <label for="nights">Number of Nights:</label>
+                <input type="radio" name="nights" value="1" onclick="calculateTotal()">1
+                <input type="radio" name="nights" value="2" onclick="calculateTotal()">2<br>
+            </div>
+
+        </div>
+       
+        <div id="totalCost"> Total Cost: ₹<span id="displayTotal">0000</span></div>
+        <input type="hidden" id="totalCostInput" name="totalCost" value="0">
+
+        <input type="hidden" name="transactionID" id="transactionID" value="">
+        <button type="submit" onclick="generateTransactionID()">Submit & Pay</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
